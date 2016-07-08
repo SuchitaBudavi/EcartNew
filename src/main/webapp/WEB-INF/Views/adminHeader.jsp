@@ -12,20 +12,30 @@
 <body>
 <div class="container">
 <div class="row"> <!-- admin header -->
-	<div class="col-md-2 col-sm-2 panel"></div>
-		<!-- <div class="col-md-8 col-sm-8 panel"><img class="hidden-sm" src="${pageContext.request.contextPath}/resources/media/flipkart_logo.jpg" alt="flipkart"/>
+	<div class="col-md-2 col-xs-2 panel"></div>
+		<!-- <div class="col-md-8 col-xs-8 panel"><img class="hidden-sm" src="${pageContext.request.contextPath}/resources/media/flipkart_logo.jpg" alt="flipkart"/>
 		<input type="text" size="75" name="searchText" id="searchText" placeholder="search"/>
 		<button type="submit">Search</button></div>-->
-		<div class="col-md-8 col-sm-8 panel"></div>
-	<div class="col-md-2 col-sm-2 panel"><a href="">Logout</a></div>
+		<div class="col-md-8 col-xs-8 panel"></div>
+	<div class="col-md-2 col-xs-2 panel"><a href="">Logout</a></div>
 </div>
-<div class="row"> <!-- navbar -->
+<div class="row"> <!-- navbar -->  
 <div class="navbar navbar-default row">
+<div class="navbar-header">
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+  </div>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 <ul class="nav navbar-nav">
 <li><a href="getAllCategories">Category</a></li>
 <li><a href="getAllProducts">Product</a></li>
 <li><a href="getAllSuppliers">Supplier</a></li>
 </ul>
+</div>
 </div>
 </div> <!-- navbar -->
 </div><!-- container -->

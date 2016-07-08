@@ -14,38 +14,38 @@
 <body>
 <div class="container">
 <%@ include file="adminHeader.jsp" %>
-<c:url var="addAction" value="/supplier/add"></c:url>
+<c:url var="addAction" value="/supplierAdd"></c:url>
 <form:form action="${addAction}" commandName="supplier">
 <c:choose>
 <c:when test="${! empty supplier.sId}">
 <div class="row">	<!-- Add Supplier -->
-<div class="col-md-2">Supplier Id: <input type="number" name="sId" value="${supplier.sId}" readonly/></div>
-<div class="col-md-2">Supplier Name: <input type="text" name="sName" value="${supplier.sName}" required/></div>
+<div class="col-md-2 col-xs-2">Supplier Id: <input type="number" name="sId" value="${supplier.sId}" readonly/></div>
+<div class="col-md-2 col-xs-2">Supplier Name: <input type="text" name="sName" value="${supplier.sName}" required/></div>
 </div>
 <div class="row">
-<div class="col-md-2">Street: <input type="text" name="street" value="${supplier.sAddress.street}"/></div>
-<div class="col-md-2">City: <input type="text" name="city" value="${supplier.sAddress.city}"/></div>
-<div class="col-md-2">State: <input type="text" name="state" value="${supplier.sAddress.state}"/></div>
-<div class="col-md-2">pincode: <input type="number" name="pincode" value="${supplier.sAddress.pincode}" required/></div>
+<div class="col-md-2 col-xs-2">Street: <input type="text" name="street" value="${supplier.sAddress.street}"/></div>
+<div class="col-md-2 col-xs-2">City: <input type="text" name="city" value="${supplier.sAddress.city}"/></div>
+<div class="col-md-2 col-xs-2">State: <input type="text" name="state" value="${supplier.sAddress.state}"/></div>
+<div class="col-md-2 col-xs-2">pincode: <input type="number" name="pincode" value="${supplier.sAddress.pincode}" required/></div>
 </div>
 <div class="row">
-<div class="col-md-4"><input class="btn" type="submit" value="Edit Supplier"/>
+<div class="col-md-4 col-xs-4"><input class="btn" type="submit" value="Edit Supplier"/>
 <input class="btn" type="submit" value="Cancel"/></div>
 </div>
 </c:when>
 <c:otherwise>
 <div class="row">	<!-- Add Supplier -->
-<div class="col-md-2">Supplier Id: <input type="number" name="sId" required/></div>
-<div class="col-md-2">Supplier Name: <input type="text" name="sName" required/></div>
+<div class="col-md-2 col-xs-2">Supplier Id: <input type="number" name="sId"/></div>
+<div class="col-md-2 col-xs-2">Supplier Name: <input type="text" name="sName" required/></div>
 </div>
 <div class="row">
-<div class="col-md-2">Street: <input type="text" name="street"/></div>
-<div class="col-md-2">City: <input type="text" name="city"/></div>
-<div class="col-md-2">State: <input type="text" name="state"/></div>
-<div class="col-md-2">pincode: <input type="number" name="pincode" required/></div>
+<div class="col-md-2 col-xs-2">Street: <input type="text" name="street"/></div>
+<div class="col-md-2 col-xs-2">City: <input type="text" name="city"/></div>
+<div class="col-md-2 col-xs-2">State: <input type="text" name="state"/></div>
+<div class="col-md-2 col-xs-2">pincode: <input type="number" name="pincode" required/></div>
 </div>
 <div class="row">
-<div class="col-md-2"><input class="btn" type="submit" value="Add Supplier"/></div>
+<div class="col-md-2 col-xs-2"><input class="btn" type="submit" value="Add Supplier"/></div>
 </div>
 </c:otherwise>
 </c:choose>
@@ -61,7 +61,7 @@
 	<th>City</th>
 	<th>State</th>
 	<th>Pincode</th>
-	<th>Update/Delete</th>
+	<th>Edit/Delete</th>
 </tr>
 </thead>
 <tbody>
@@ -74,8 +74,8 @@
 	<td>${supplier.sAddress.state}</td>
 	<td>${supplier.sAddress.pincode}</td>	
 	<td>
-	<a href="<c:url value='/supplier/edit/${supplier.sId}'/>">Edit</a> /
-	<a href="<c:url value='/supplier/delete/${supplier.sId}'/>">Delete</a>
+	<a href="<c:url value='/supplierEdit/${supplier.sId}'/>">Edit</a> /
+	<a href="<c:url value='/supplierDelete/${supplier.sId}'/>">Delete</a>
 	</td>
 </tr>
 </c:forEach>

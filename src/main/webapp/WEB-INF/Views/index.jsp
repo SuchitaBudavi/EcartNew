@@ -1,4 +1,5 @@
 <!DOCTYPE HTML> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 	<title>ECart</title>
@@ -52,52 +53,11 @@
 </div><!-- container -->
 <!-- Carousel  -->
 
-
-<!-- Modal SignUp-->
-<div id="signupModal" class="modal fade" role="dialog">
-<div class="modal-dialog">
-<div class="modal-content">
-	<form method="post" action="signup.jsp">
-		<div class="modal-header">
-		<b>SING UP</b>
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-		</div>
-		<div class="modal-body">
-				<input type="text" placeholder="First name" size="30"><br><br>
-				<input type="text" placeholder="Last name" size="30"><br><br>
-				Gender: <input type="radio" name="gender" value="male"/>Male
-						<input type="radio" name="gender" value="female"/>Female<br><br>
-		</div>
-		<div class="modal-footer">
-			<button type="button" data-dismiss="modal">Cancel</button>
-			<button type="submit">Sign up</button>
-		</div>
-	</form>
+<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+<div>
+	Login attempt unseccesSfull<br>
+	${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}
 </div>
-</div>
-</div><!-- modal -->
-
-
-<!-- Modal Login-->
-<div id="loginModal" class="modal fade" role="dialog">
-<div class="modal-dialog">
-<div class="modal-content">
-	<form method="post" action="login">
-		<div class="modal-header">
-		<b>Login</b>
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-		</div>
-		<div class="modal-body">
-				<input type="text" name="email" placeholder="email" size="30"><br><br>
-				<input type="password" name="password" placeholder="password" size="30"><br><br>
-		</div>
-		<div class="modal-footer">
-			<button type="button" data-dismiss="modal">Cancel</button>
-			<button type="submit">Login</button>
-		</div>
-	</form>
-</div><!-- modal content -->
-</div>
-</div><!-- modal -->
+</c:if>
 </body>
 </html>

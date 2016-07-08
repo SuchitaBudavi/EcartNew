@@ -10,7 +10,9 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
 </head>
 <body>
-<div class="container">
 <%@ include file="adminHeader.jsp" %>
+<div class="container">
+
+</div> <!-- container -->
 </body>
 </html>

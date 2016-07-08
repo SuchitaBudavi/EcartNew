@@ -47,6 +47,12 @@
 				<li><a href="customerCare.jsp">Customer Care</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#signupModal"> Signup</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#loginModal"> Log In</a></li>
+				<li class="dropdown"><a data-toggle="dropdown" href=""><span class="glyphicon glyphicon-cog"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="manageProfile">Manage Profile</a></li>
+						<li><a href="logout">Logout</a></li>
+					</ul>
+				</li>
 			</ul>
 			</div>	
 		</div>
@@ -59,16 +65,16 @@
 <div id="signupModal" class="modal fade" role="dialog">
 <div class="modal-dialog">
 <div class="modal-content">
-	<form method="post" action="signup.jsp">
+	<form method="post" action="signUp">
 		<div class="modal-header">
 		<b>SING UP</b>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 		</div>
 		<div class="modal-body">
-				<input type="text" placeholder="First name" size="30"><br><br>
-				<input type="text" placeholder="Last name" size="30"><br><br>
-				Gender: <input type="radio" name="gender" value="male"/>Male
-						<input type="radio" name="gender" value="female"/>Female<br><br>
+				<input type="text" name="fName" placeholder="First name" size="30" required><br><br>
+				<input type="text" name="lName" placeholder="Last name" size="30" required><br><br>
+				<input type="email" name="email" placeholder="Email" size="30" required><br><br>
+				<input type="password" name="password" placeholder="Password" size="30" required><br><br>
 		</div>
 		<div class="modal-footer">
 			<button type="button" data-dismiss="modal">Cancel</button>
@@ -84,15 +90,18 @@
 <div id="loginModal" class="modal fade" role="dialog">
 <div class="modal-dialog">
 <div class="modal-content">
-	<form method="post" action="login">
+<!-- <form method="post" action="login"> -->
+	<form method="post" action="j_spring_security_check">
 		<div class="modal-header">
 		<b>Login</b>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 		</div>
 		<div class="modal-body">
 		${errorMessage}<br>
-				<input type="text" name="email" placeholder="email" size="30" required><br><br>
-				<input type="password" name="password" placeholder="password" size="30" required><br><br>
+				<!-- <input type="text" name="email" placeholder="Email" size="30" required><br><br>
+				<input type="password" name="password" placeholder="Password" size="30" required><br><br> -->
+				<input type="text" name="j_username" placeholder="Email" size="30" required><br><br>
+				<input type="password" name="j_password" placeholder="Password" size="30" required><br><br>
 		</div>
 		<div class="modal-footer">
 			<button type="button" data-dismiss="modal">Cancel</button>
