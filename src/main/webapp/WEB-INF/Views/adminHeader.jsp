@@ -17,7 +17,7 @@
 		<input type="text" size="75" name="searchText" id="searchText" placeholder="search"/>
 		<button type="submit">Search</button></div>-->
 		<div class="col-md-8 col-xs-8 panel"></div>
-	<div class="col-md-2 col-xs-2 panel"><a href="">Logout</a></div>
+	<div class="col-md-2 col-xs-2 panel"><a href="logout">Logout</a></div>
 </div>
 <div class="row"> <!-- navbar -->  
 <div class="navbar navbar-default row">

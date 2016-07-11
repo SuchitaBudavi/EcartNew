@@ -1,3 +1,3 @@
 function popup(){
-	alert("hello");
+	//alert("hello");
 }

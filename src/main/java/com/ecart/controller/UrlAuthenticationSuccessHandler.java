@@ -24,6 +24,7 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
 			throws IOException, ServletException {
 		
 		handle(request, response, authentication);
+		System.out.println("authentication"+authentication.getCredentials());
         clearAuthenticationAttributes(request);
 
 	}
@@ -55,7 +56,7 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
         }
  
         if (isUser) {
-            return "/Homee.jsp";
+            return "/cover";
         } else if (isAdmin) {
             return "/getAllCategories";
         	/*return "/getAllCategories";*/

@@ -1,12 +1,16 @@
 <!DOCTYPE HTML> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!-- <meta http-equiv="refresh" content="0; URL=./onLoad"/> -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ecart.css"/>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
 </head>
+<!-- <body onload="window.location = 'onLoad'"> -->
 <body>
 <header>
 	<div class="row"> <!-- search -->
@@ -29,7 +33,18 @@
 			      </button>
     		</div>
     		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
+    		<ul class="nav navbar-nav">
+    		<c:forEach items="${sessionScope.categotyList}" var="category">
+    			<%-- <li class="dropdown"><a data-toggle="dropdown" href="">${category.cName}<span class="caret"></span></a></li> --%>
+    			<li><a href="user/product/${category.cId}">${category.cName}</a></li>
+    			<%-- <c:forEach items="${categoryProduct.value}" var="product">
+    				<ul class="dropdown-menu">
+    					<li><a href="">${product.value}</a></li>
+    				</ul>
+    			</c:forEach> --%>
+    		</c:forEach>
+    		</ul>
+			<!-- <ul class="nav navbar-nav">
 				<li class="dropdown"><a data-toggle="dropdown" href="">Moiles<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="product/mobile?pType=mobiles&brand=iphone">iPhone</a></li>
@@ -42,7 +57,7 @@
 						<li><a href="product/cover?pType=mobiles&brand=samsung">Samsung</a></li>
 					</ul>
 				</li>
-			</ul>
+			</ul> -->
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="customerCare.jsp">Customer Care</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#signupModal"> Signup</a></li>

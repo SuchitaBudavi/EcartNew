@@ -11,12 +11,15 @@
         <intercept-url pattern="/enter*" access="ROLE_USER" />
         <http-basic/>
     </http> -->
+  <!--   <global-method-security secured-annotations="enabled" /> -->
+    <http pattern="/index" security="none"/>
+    <http pattern="/user/**" security="none"/>
     <http>
-    	 <intercept-url pattern="/welcome*" access="ROLE_USER,ROLE_ADMIN" />
+    	 <intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN" />
     	 <form-login login-page="/index" login-processing-url="/j_spring_security_check" default-target-url="/welcome" 
     	 authentication-failure-url="/index"
     	 authentication-success-handler-ref="authenticationSuccessHandler"/>
-    	 <logout logout-success-url="/index"/>
+    	 <logout logout-url="/logout" logout-success-url="/index"/>
     </http>
  
  	<beans:bean id="authenticationSuccessHandler"
@@ -24,7 +27,7 @@
         
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
-        <!-- <password-encoder hash="sha-256"/> -->
+        <password-encoder hash="sha"/>
           <!--   <user-service>
                 <user name="lokesh" password="123" authorities="ROLE_USER" />
             </user-service> -->
@@ -34,5 +37,8 @@
             				users-by-username-query="select email, password, enabled from user_details where email=?"/>
         </authentication-provider>
     </authentication-manager>
- 
+ 	<beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+ 		<beans:property name="cacheSeconds" value="0"/>
+ 	</beans:bean>
+ 	
 </beans:beans>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import com.ecart.model.ProductFeatureID;
 import com.ecart.model.Supplier;
 
 @Controller
+
 /*@RequestMapping("/product")*/
 public class ProductController {
 
@@ -63,9 +65,29 @@ public class ProductController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/cover")
-	public ModelAndView displayCovers(@RequestParam("pType") String pType, @RequestParam("brand") String brand){
-		System.out.println("productcontroller"+pType+brand);
-		return new ModelAndView("cover");
+	public ModelAndView displayCovers(){
+		ModelAndView model = new ModelAndView("cover");
+		return model;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/user/product/{cId}")
+	public ModelAndView userDisplayProduct(@PathVariable("cId") int cId){
+		System.out.println("inside user Product display");
+		ModelAndView model = new ModelAndView();
+		switch (cId) {
+		case 1:
+			model = new ModelAndView("userMobile");
+			break;
+		case 2:
+			model = new ModelAndView("userCover");
+			break;
+			
+		default:
+			model = new ModelAndView("userMobile");
+			break;
+		}
+		System.out.println(model.toString());
+		return model;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/getAllProducts")
@@ -117,6 +139,7 @@ public class ProductController {
 		}
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method=RequestMethod.GET, value="/productDelete/{cId}/{pId}")
 	public ModelAndView deleteProduct(@PathVariable("pId") int pId,@PathVariable("cId") int cId){
 		
@@ -179,6 +202,7 @@ public class ProductController {
 		return model;
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method=RequestMethod.GET, value="/mobileCoverFeatureEdit/{cId}/{pId}")
 	public ModelAndView mobileCoverFeatureEdit(@PathVariable("pId") int pId,@PathVariable("cId") int cId){
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -192,6 +216,7 @@ public class ProductController {
 		return model;
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(method=RequestMethod.GET, value="/mobileCoverFeatureSave")
 	public String mobileCoverFeatureSave(@ModelAttribute("mobileCoverFeature") MobileCoverFeature mobileCoverFeature,@ModelAttribute("product_FK") Product pId,@ModelAttribute("category_FK") Category cId){
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -209,6 +234,11 @@ public class ProductController {
 
 		mobileCoverFeatureDao.saveOrUpdate(mobileCoverFeature);
 		return "redirect: productDetails/"+mobileCoverFeature.getMobileCoverFeatureId().getCategory_FK().getcId()+"/"+mobileCoverFeature.getMobileCoverFeatureId().getProduct_FK().getpId();
+	}
+	
+	@RequestParam("/filter")
+	public ModelAndView productFilter(@RequestParam("brands") ArrayList brands){
+		
 	}
 	
 }//class ends

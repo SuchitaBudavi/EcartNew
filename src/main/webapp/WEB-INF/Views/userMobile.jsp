@@ -4,15 +4,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Products</title>
+<title>Mobiles</title>
 </head>
 <body>
 <%@ include file="header.jsp"%>
 <div class="container"><!-- filter -->
 <div class = "col-md-3 col-xs-3" style="border:1px solid">
+<form action="filter">
 <div class="col-md-12">
-      Content goes here
+<div class="row">
+<input class="btn btn-default btn-lg" type="button" value="Filter"/>
 </div>
+<div class="row">
+<input type="checkbox" name="brand" value="iPhone"> iPhone<br>
+<input type="checkbox" name="brand" value="samsung"> Samsung<br>
+</div>
+</div>
+</form>
 </div><!-- filter -->
 <div class = "col-md-9 col-xs-9" style="border:1px solid"><!-- product list -->
 <div class="col-md-12">

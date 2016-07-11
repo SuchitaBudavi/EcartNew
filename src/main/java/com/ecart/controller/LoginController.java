@@ -1,5 +1,11 @@
 package com.ecart.controller;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -9,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ecart.dao.CategoryDao;
 import com.ecart.dao.ProductDao;
 import com.ecart.dao.UserDao;
 import com.ecart.model.Address;
+import com.ecart.model.Category;
 import com.ecart.model.User;
 
 
@@ -19,12 +27,38 @@ import com.ecart.model.User;
 public class LoginController{
 	
 	public ProductDao productDao;
+	public CategoryDao categoryDao;
 	User user;
 	
-	@RequestMapping("/*")
-	public ModelAndView loadIndexPage(){
-		return new ModelAndView("index");
+	@RequestMapping("/index")
+	public ModelAndView loadIndexPage(HttpSession session){
+		Map<Integer,String> productNameMap;
+		Map<String,Map<Integer,String>> categoryProductMap;
+		
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		context.scan("com.ecart");
+		context.refresh();
+		
+		ModelAndView model = new ModelAndView("index");
+		categoryDao = (CategoryDao) context.getBean("categoryDao");
+		productDao = (ProductDao) context.getBean("productDao");
+		
+		List<Category> categoryList = categoryDao.getCategoryList();
+		
+		/*categoryProductMap = new HashMap();
+		
+		Iterator i = categoryList.iterator();
+		while(i.hasNext()){
+			Category c = (Category) i.next();
+			productNameMap = productDao.getProductNameList(c.getcId());
+			categoryProductMap.put(c.getcName(), productNameMap);
+			System.out.println(((Category)i.next()).getcName());
+		}*/
+		session.setAttribute("categotyList", categoryList);
+		//session.setAttribute("categoryProduct", categoryProductMap);
+		return model;
 	}
+	
 	
 	@RequestMapping(method=RequestMethod.POST, value="/login")
 	public String validateUser(@RequestParam("email") String email, @RequestParam("password") String password){
