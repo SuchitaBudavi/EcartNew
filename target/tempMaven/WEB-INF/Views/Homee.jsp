@@ -10,5 +10,6 @@
 <%@ include file="header.jsp" %>
 <h1>Home</h1>
 <h2>this page will be same as index.jsp but with knowledge of user has logged in</h2>
+<a href="supplier/getAllSuppliers">Supplier</a>
 </body>
 </html>

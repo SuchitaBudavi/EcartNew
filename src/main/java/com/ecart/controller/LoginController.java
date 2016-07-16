@@ -7,7 +7,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,41 +30,26 @@ import com.ecart.model.User;
 
 
 @Controller
-public class LoginController{
+public class LoginController implements ApplicationContextAware{
 	
+	@Autowired(required=true)
 	public ProductDao productDao;
+	@Autowired
 	public CategoryDao categoryDao;
+	@Autowired
+	public UserDao userDao;
+	@Autowired
 	User user;
 	
+	ApplicationContext context;
+	
 	@RequestMapping("/index")
-	public ModelAndView loadIndexPage(HttpSession session){
-		Map<Integer,String> productNameMap;
-		Map<String,Map<Integer,String>> categoryProductMap;
-		
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		context.scan("com.ecart");
-		context.refresh();
-		
+	public ModelAndView loadIndexPage(HttpSession session){		
 		ModelAndView model = new ModelAndView("index");
-		categoryDao = (CategoryDao) context.getBean("categoryDao");
-		productDao = (ProductDao) context.getBean("productDao");
-		
 		List<Category> categoryList = categoryDao.getCategoryList();
-		
-		/*categoryProductMap = new HashMap();
-		
-		Iterator i = categoryList.iterator();
-		while(i.hasNext()){
-			Category c = (Category) i.next();
-			productNameMap = productDao.getProductNameList(c.getcId());
-			categoryProductMap.put(c.getcName(), productNameMap);
-			System.out.println(((Category)i.next()).getcName());
-		}*/
 		session.setAttribute("categotyList", categoryList);
-		//session.setAttribute("categoryProduct", categoryProductMap);
 		return model;
 	}
-	
 	
 	@RequestMapping(method=RequestMethod.POST, value="/login")
 	public String validateUser(@RequestParam("email") String email, @RequestParam("password") String password){
@@ -96,13 +87,7 @@ public class LoginController{
 	public String signUpUser(@RequestParam("fName") String fName,@RequestParam("lName") String lName, @RequestParam("email") String email, @RequestParam("password") String password){
 		System.out.println("inside Singup controller");
 		System.out.println("lName="+lName);
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		context.scan("com.ecart");
-		context.refresh();
-		
-		UserDao userDao = (UserDao) context.getBean("userDao");
-		
-		user = (User) context.getBean("user");
+
 		user.setfName(fName);
 		user.setlName(lName);
 		user.setEmail(email);
@@ -126,13 +111,64 @@ public class LoginController{
 		return "userProfile";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/welcome")
-	public String testLogin(Model model){
-		return "testSpringSecurity";
+	@RequestMapping(method=RequestMethod.GET, value="/userHasLogged")
+	public String userHasLogged(HttpSession session,Model model){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		
+		user = (User) context.getBean("user");
+		System.out.println(user);
+		if (user != null) {
+				user = userDao.getUser(email);
+		}
+		
+		
+		if(session.getAttribute("loggedUserEmail") == null || session.getAttribute("loggedUserEmail") == ""){
+			session.setAttribute("loggedUserRole", "ROLE_USER");
+			session.setAttribute("loggedUserName", email);
+			session.setAttribute("loggedUser", user);
+			System.out.println("userHasLogged!!!!!!!!!");
+			System.out.println("session loggedUserEmail set to="+email+" logged user="+((User) session.getAttribute("loggedUser")).getuId());
+		}
+		
+		return "redirect: user/product/1";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/loginTest")
-	public String testUseLogin(Model model){
-		return "securityLogin";
+	@RequestMapping(method=RequestMethod.GET, value="/adminHasLogged")
+	public String adminHasLogged(HttpSession session,Model model){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		
+		user = (User) context.getBean("user");
+		if (user != null) {
+			if(user.getuId() == ""){
+				user = userDao.getUser(email);
+		}
+		
+		
+		if(session.getAttribute("loggedUserEmail") == null || session.getAttribute("loggedUserEmail") == ""){
+			session.setAttribute("loggedUserRole", "ROLE_USER");
+			session.setAttribute("loggedUserName", email);
+			session.setAttribute("loggedUser", user);
+			System.out.println("userHasLogged!!!!!!!!!");
+			System.out.println("session loggedUserEmail set to="+email+" logged user="+((User) session.getAttribute("loggedUser")).getuId());
+		}
+		}
+		return "redirect: getAllCategories";
 	}
+	
+	@RequestMapping("/customerCare")
+	public String customerCare(){
+		System.out.println("inside customercare");
+		return "customerCare";
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext context) throws BeansException {
+		this.context = context;
+		System.out.println("Login Controller context: "+context);
+		
+	}
+	
+	
 }

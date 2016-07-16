@@ -53,8 +53,8 @@
 	<th>${product.pPrice}</th>
 	<th>${product.pQty}</th>
 	<th>${product.supplier_FK.sName}</th>
-	<th><a href="<c:url value='/productDetails/${product.category_FK.cId}/${product.pId}'/>">Edit</a> /
-	<a href="<c:url value='/productDelete/${product.category_FK.cId}/${product.pId}'/>">Delete</a></th>
+	<th><a href="<c:url value='productDetails/${product.category_FK.cId}/${product.pId}'/>">Edit</a> /
+	<a href="<c:url value='productDelete/${product.category_FK.cId}/${product.pId}'/>">Delete</a></th>
 </tr>
 </c:forEach>
 </tbody>

@@ -16,8 +16,8 @@ Mobile Cover Feature:
 <c:url var="addAction" value="/mobileCoverFeatureSave"/>
 <form action="${addAction}">
 <table>
-<input type="number" name="mobileCoverFeatureId.product_FK.pId" value="${mobileCoverFeature.mobileCoverFeatureId.product_FK.pId}"/>
-<input type="number" name="mobileCoverFeatureId.category_FK.cId" value="${mobileCoverFeature.mobileCoverFeatureId.category_FK.cId}"/>
+<input type="number" name="mobileCoverFeatureId.product_FK.pId" value="${product}"/>
+<input type="number" name="mobileCoverFeatureId.category_FK.cId" value="${category}"/>
 <tr><td>Color:</td><td><input type="text" name="color" path="color" value="${mobileCoverFeature.color}"/></td></tr>
 <tr><td>Material:</td><td><input type="text" name="material" path="material" value="${mobileCoverFeature.material}"/></td></tr>
 <tr><td>Case Type:</td><td><input type="text" name="caseType" path="caseType" value="${mobileCoverFeature.caseType}"/></td></tr>

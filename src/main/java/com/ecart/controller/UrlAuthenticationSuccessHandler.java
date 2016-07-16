@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
@@ -24,7 +25,9 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
 			throws IOException, ServletException {
 		
 		handle(request, response, authentication);
-		System.out.println("authentication"+authentication.getCredentials());
+		System.out.println("authentication"+authentication.getAuthorities());
+		System.out.println("authentication getname"+authentication.getName());
+		
         clearAuthenticationAttributes(request);
 
 	}
@@ -56,9 +59,10 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
         }
  
         if (isUser) {
-            return "/cover";
+            return "/userHasLogged";
+        	/*return "/cover";*/
         } else if (isAdmin) {
-            return "/getAllCategories";
+            return "/adminHasLogged";
         	/*return "/getAllCategories";*/
         } else {
             throw new IllegalStateException();

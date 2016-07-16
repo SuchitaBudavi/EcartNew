@@ -4,10 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css"/>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ecart.css"/>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery-1.12.4.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script> --%>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <div class="container">
@@ -17,7 +21,7 @@
 		<input type="text" size="75" name="searchText" id="searchText" placeholder="search"/>
 		<button type="submit">Search</button></div>-->
 		<div class="col-md-8 col-xs-8 panel"></div>
-	<div class="col-md-2 col-xs-2 panel"><a href="logout">Logout</a></div>
+	<div class="col-md-2 col-xs-2 panel"><a href="${pageContext.request.contextPath}/logout">Logout</a></div>
 </div>
 <div class="row"> <!-- navbar -->  
 <div class="navbar navbar-default row">

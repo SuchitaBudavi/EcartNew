@@ -1,19 +1,50 @@
-<!DOCTYPE HTML> 
+<!DOCTYPE html>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<html lang="en">
 <head>
-	<title>ECart</title>
+  <title>Ecart</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */
+    .navbar {
+      margin-bottom: 50px;
+      border-radius: 0;
+    }
+    
+    /* Remove the jumbotron's default bottom margin */
+     .jumbotron {
+      margin-bottom: 0;
+     
+    }
+   
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    
+    /* filet */
+    .filter{
+    	
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-<%@ include file="header.jsp"%>
-<div class="row top-buffer">
-	<div class="col-md-12 col-sm-12 panel"></div>
+<%@include file="headerNew.jsp"%>
+<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+<div>
+	Login attempt unseccesSfull<br>
+	${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}
 </div>
-<!-- Carousel  -->
-<div class="row">
-	<div class="col-md-12 col-sm-12 panel">
-		<div id="phonesCarousel" class="carousel slide" data-ride="carousel">
+</c:if>
+<div class="container">
+<div id="phonesCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
 		    <ol class="carousel-indicators">
 		      <li data-target="#phonesCarousel" data-slide-to="0" class="active"></li>
@@ -23,18 +54,30 @@
 		    </ol>
 		    <div class="carousel-inner" role="listbox">
 		      	<div class="item active">
-		       		 <img src="resources/media/iphones1.jpg" alt="Chania" width="900" height="250">
+		       		 <img src="D:\\study\\ECart\\EcartFrontEnd\\src\\main\\webapp\\WEB-INF\\resources\\media\\iphones1.jpg" alt="iphone" width="900" height="250">
+		       		 <div class="carousel-caption">
+			            <h3>iPhone</h3>
+          			</div>
 		      	</div>
 		
 		     	<div class="item">
-		        	<img src="resources/media/samsung1024_620.jpg" alt="Chania" width="900" height="300">
+		        	<img src="D:\\study\\ECart\\EcartFrontEnd\\src\\main\\webapp\\WEB-INF\\resources\\media\\samsung1024_620.jpg" alt="samsung" width="900" height="300">
+		        	 <div class="carousel-caption">
+			            <h3>Samsung</h3>
+          			</div>
 		      	</div>
 		    
 		      	<div class="item">
-		        	<img src="resources/media/iphone1024x620.jpg" alt="Flower" width="900" height="300">
+		        	<img src="D:\\study\\ECart\\EcartFrontEnd\\src\\main\\webapp\\WEB-INF\\resources\\media\\iphone1024x620.jpg" alt="iphone" width="900" height="300">
+		        	 <div class="carousel-caption">
+			            <h3>iPhone</h3>
+          			</div>
 		      	</div>
 		      	<div class="item">
-		        	<img src="resources/media/samsung-1024x620.jpg" alt="Flower" width="900" height="300">
+		        	<img src="D:\\study\\ECart\\EcartFrontEnd\\src\\main\\webapp\\WEB-INF\\resources\\media\\samsung-1024x620.jpg" alt="samsung" width="900" height="300">
+		        	<div class="carousel-caption">
+			            <h3>Samsung</h3>
+          			</div>
 		      	</div>
 			</div>	<!-- carousel-inner -->
 			<!-- Left and right controls -->
@@ -47,17 +90,12 @@
 		      <span class="sr-only">Next</span>
 		    </a>
 		</div>
-	</div>
-	<div class="col-md-1 col-sm-1 panel"></div>
 </div>
-</div><!-- container -->
-<!-- Carousel  -->
+<br><br>
 
-<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
-<div>
-	Login attempt unseccesSfull<br>
-	${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}
-</div>
-</c:if>
+<footer class="container-fluid text-center">
+  <p>Online Store Copyright</p>
+</footer>
 </body>
 </html>
+

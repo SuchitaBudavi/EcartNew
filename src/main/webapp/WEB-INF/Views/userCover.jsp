@@ -1,47 +1,88 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Covers</title>
+  <title>Mobile Covers</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */
+    .navbar {
+      margin-bottom: 50px;
+      border-radius: 0;
+    }
+    
+    /* Remove the jumbotron's default bottom margin */
+     .jumbotron {
+      margin-bottom: 0;
+     
+    }
+   
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    
+    /* filet */
+    .filter{
+    	
+    }
+  </style>
 </head>
 <body>
-<%@ include file="header.jsp"%>
-<div class="container"><!-- filter -->
-<div class = "col-md-3 col-xs-3" style="border:1px solid">
-<div class="col-md-12">
-      Content goes here
-</div>
-</div><!-- filter -->
-<div class = "col-md-9 col-xs-9" style="border:1px solid"><!-- product list -->
-<div class="col-md-12">
-<div class="row panel"><!-- rows will repeat according to the number of products -->
-	<div class="col-md-4 col-xs-3" style="border:1px solid">
-		<div class="pImage">Image</div>
-		<div class="pName">Product Name</div>
-		<div class="pAmount">Product Amount</div>
-		<div class="pCompare" style="font-size:8pt">
-			<input type="checkbox" class="pcompare" value=""> Add to compare
-		</div>
+<%@include file="headerNew.jsp"%>
+<div class="container">
+<div class="col-sm-3">
+	<div class="panel panel-primary filter">
+		<div class="panel-heading">Filters</div>
+		<div class="panel-body">BODY</div>
 	</div>
-	<div class="col-md-4 col-xs-3" style="border:1px solid">sdfes</div>
-	<div class="col-md-4 col-xs-3" style="border:1px solid">sdfs</div>
 </div>
-<div class="row panel"><!-- rows will repeat according to the number of products -->
-	<div class="col-md-4 col-xs-3" style="border:1px solid">
-		<div class="pImage">Image</div>
-		<div class="pName">Product Name</div>
-		<div class="pAmount">Product Amount</div>
-		<div class="pCompare">
-			<input type="checkbox" class="pcompare" value=""> Add to compare
-		</div>
-	</div>
-	<div class="col-md-4 col-xs-3" style="border:1px solid">sdfes</div>
-	<div class="col-md-4 col-xs-3" style="border:1px solid">sdfs</div>
+<div class="col-sm-9">
+<c:set var="size" scope="page" value="${fn:length(productList)}"></c:set>
+<c:forEach begin="0" step="3" end="${size}" varStatus="count">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-info">
+        <div class="panel-heading">${productList[count.index].pBrand}<br>${productList[count.index].pModel}</div>
+        <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">${productList[count.index].pPrice}</div>
+      </div>
+    </div>
+    <c:if test="${count.index+1 <=  (size-1)}">
+    <div class="col-sm-4">
+      <div class="panel panel-danger">
+        <div class="panel-heading">${productList[count.index+1].pBrand}<br>${productList[count.index+1].pModel}</div>
+        <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">${productList[count.index+1].pPrice}</div>
+      </div>
+    </div>
+    </c:if>
+    <c:if test="${count.index+2 <=  (size-1)}">
+    <div class="col-sm-4">
+      <div class="panel panel-success">
+        <div class="panel-heading">${productList[count.index+2].pBrand}<br>${productList[count.index+2].pModel}</div>
+        <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">${productList[count.index+2].pPrice}</div>
+      </div>
+    </div>
+    </c:if>
+  </div>
+</c:forEach>
+</div><br>
 </div>
-</div><!-- column 12 for gapping -->
-</div><!-- product list -->
-</div>
+<br><br>
+
+<footer class="container-fluid text-center">
+  <p>Online Store Copyright</p>
+</footer>
+
 </body>
 </html>
+

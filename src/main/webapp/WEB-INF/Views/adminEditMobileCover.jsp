@@ -58,7 +58,7 @@
 <tr><td>Plain/Designed</td><td>${mobileCoverFeature.plainOrDesigned}</td></tr>
 </tbody>
 <tfoot>
-<tr><td></td><td><a class="btn btn-default" href="<c:url value='/mobileCoverFeatureEdit/${mobileCoverFeature.mobileCoverFeatureId.category_FK.cId}/${mobileCoverFeature.mobileCoverFeatureId.product_FK.pId}'/>">Edit Features</a></td></tr>
+<tr><td></td><td><a class="btn btn-default" href="<c:url value='/mobileCoverFeatureEdit/${product.category_FK.cId}/${product.pId}'/>">Edit Features</a></td></tr>
 </tfoot>
 </table>
 <!-- Suppliers table -->
@@ -81,7 +81,7 @@
 	<td>${supplier.pPrice}</td>
 	<td>${supplier.pQty}</td>
 	<td><input class="btn btn-default" type="button" value="Edit" onclick="updateSupplier(${supplier.multiSupplierId.supplier_FK.sId}, '${supplier.multiSupplierId.supplier_FK.sName}')" data-toggle="modal" data-target="#updateSupplierModal"></td>
-	<td><a class="btn btn-default" href="deleteMultiSupplier/${mobileCoverFeature.mobileCoverFeatureId.category_FK.cId}/${mobileCoverFeature.mobileCoverFeatureId.product_FK.pId}/${supplier.multiSupplierId.supplier_FK.sId}">Delete</a></td>
+	<td><a class="btn btn-default" href="${pageContext.request.contextPath}/deleteMultiSupplier/${mobileCoverFeature.mobileCoverFeatureId.category_FK.cId}/${mobileCoverFeature.mobileCoverFeatureId.product_FK.pId}/${supplier.multiSupplierId.supplier_FK.sId}">Delete</a></td>
 </tr>
 </c:forEach>
 </tbody>
@@ -107,8 +107,8 @@
 	<div class="modal-body">
 	<table style="border-collapse: separate; border-spacing: 8px 10px;">
 	<tr><td>Select Supplier:</td><td><form:select path="supplier.sId" items="${supplierList}" itemValue="sId" itemLabel="sName"></form:select></td></tr>
-	<tr><td>Product Price:</td><td><input type="text" name="pPrice"></td></tr>
-	<tr><td>Product Quantity:</td><td><input type="text" name="pQty"></td></tr>
+	<tr><td>Product Price:</td><td><input type="text" name="pPrice" value="0"></td></tr>
+	<tr><td>Product Quantity:</td><td><input type="text" name="pQty" value="0"></td></tr>
 	</table>
 	</div>
 	<div class="modal-footer">

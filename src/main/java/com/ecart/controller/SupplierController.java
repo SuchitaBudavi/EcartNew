@@ -29,10 +29,13 @@ import com.ecart.model.Supplier;
 @Secured("ROLE_ADMIN")
 public class SupplierController {
 
-	
+	@Autowired
 	public SupplierDao supplierDao;
+	@Autowired
 	public MultiSupplierDao multiSupplierDao;
+	@Autowired
 	public ProductDao productDao;
+	@Autowired
 	public CategoryDao categoryDao;
 	
 	@RequestMapping(method=RequestMethod.GET, value="/getAllSuppliers")
@@ -40,11 +43,11 @@ public class SupplierController {
 		System.out.println("supplier controller");
 		ModelAndView model = new ModelAndView("adminSupplier");
 		
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
 		
-		SupplierDao supplierDao = (SupplierDao) context.getBean("supplierDao");
+		SupplierDao supplierDao = (SupplierDao) context.getBean("supplierDao");*/
 		
 		model.addObject("supplierList",supplierDao.getSupplierList());
 		
@@ -53,11 +56,11 @@ public class SupplierController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/supplierDelete/{sId}")
 	public ModelAndView deleteSupplier(@PathVariable("sId") int sId){
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+	/*	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
 		
-		SupplierDao supplierDao = (SupplierDao) context.getBean("supplierDao");
+		SupplierDao supplierDao = (SupplierDao) context.getBean("supplierDao");*/
 		
 		ModelAndView model = new ModelAndView("adminSupplier");
 		supplierDao.deleteSupplier(sId);
@@ -67,11 +70,11 @@ public class SupplierController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/supplierEdit/{sId}")
 	public ModelAndView updateSupplier(@PathVariable("sId") int sId){
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
 		
-		SupplierDao supplierDao = (SupplierDao) context.getBean("supplierDao");
+		SupplierDao supplierDao = (SupplierDao) context.getBean("supplierDao");*/
 		
 		ModelAndView model = new ModelAndView("adminSupplier");
 		Supplier supplier = supplierDao.getSuuplier(sId);
@@ -83,11 +86,12 @@ public class SupplierController {
 	@RequestMapping(method=RequestMethod.POST, value="/supplierAdd")
 	public ModelAndView addSupplier(@ModelAttribute("supplier") Supplier supplier,@ModelAttribute("address") Address address){
 		System.out.println("Supplier: "+supplier.getsName());
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
+		SupplierDao supplierDao = (SupplierDao) context.getBean("supplierDao");*/
+		
 		ModelAndView model = new ModelAndView("adminSupplier");
-		SupplierDao supplierDao = (SupplierDao) context.getBean("supplierDao");
 		if(address != null)
 			supplier.setsAddress(address);
 		supplierDao.saveOrUpdate(supplier);
@@ -104,14 +108,14 @@ public class SupplierController {
 		System.out.println("pPrice= "+pPrice);
 		System.out.println("pQty= "+pQty);
 		
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
 		
 		multiSupplierDao = (MultiSupplierDao) context.getBean("multiSupplierDao");
 		productDao = (ProductDao) context.getBean("productDao");
 		categoryDao = (CategoryDao) context.getBean("categoryDao");
-		supplierDao = (SupplierDao) context.getBean("supplierDao");
+		supplierDao = (SupplierDao) context.getBean("supplierDao");*/
 		
 		MultiSupplier multiSupplier = new MultiSupplier();
 		MultiSupplierID multiSupplierId = new MultiSupplierID();
@@ -137,11 +141,11 @@ public class SupplierController {
 		System.out.println("pPrice= "+pPrice);
 		System.out.println("pQty= "+pQty);
 		
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
 		
-		multiSupplierDao = (MultiSupplierDao) context.getBean("multiSupplierDao");
+		multiSupplierDao = (MultiSupplierDao) context.getBean("multiSupplierDao");*/
 		multiSupplierDao.updatePriceQty(pId, cId, sId, pPrice, pQty);
 		
 		return "redirect: /EcartFrontEnd/productDetails/"+cId+"/"+pId;
@@ -154,11 +158,11 @@ public class SupplierController {
 		System.out.println("pId= "+pId);
 		System.out.println("sId= "+sId);
 		
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
 		
-		multiSupplierDao = (MultiSupplierDao) context.getBean("multiSupplierDao");
+		multiSupplierDao = (MultiSupplierDao) context.getBean("multiSupplierDao");*/
 		multiSupplierDao.deleteProductSupplier(pId, cId, sId);
 		return "redirect: /EcartFrontEnd/productDetails/"+cId+"/"+pId;
 	}

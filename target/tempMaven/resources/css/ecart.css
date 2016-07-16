@@ -1,0 +1,30 @@
+@CHARSET "ISO-8859-1";
+
+
+/*.row{
+	border: 1px solid;
+}*/
+
+#signupModal .modal-dialog  {width:30%;}
+
+
+#loginModal .modal-dialog  {width:30%;}
+
+#signupModal #loginModal { top: 100px;}
+
+.carousel-indicators li {
+  background-color: black;
+}
+
+.carousel-indicators .active {
+  background-color: grey;
+}
+
+.carousel-inner  .item  img {
+    margin: 0 auto;
+}
+
+.pCompare{
+	font-size:8pt;
+	color: grey;
+}

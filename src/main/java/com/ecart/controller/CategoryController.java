@@ -3,8 +3,13 @@ package com.ecart.controller;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -25,6 +30,9 @@ import com.ecart.model.Supplier;
 @Secured("ROLE_ADMIN")
 public class CategoryController {
 	
+	@Autowired
+	CategoryDao categoryDao;
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		binder.setDisallowedFields("cId");
@@ -35,11 +43,11 @@ public class CategoryController {
 		System.out.println("supplier controller");
 		ModelAndView model = new ModelAndView("adminCategory");
 		
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
 		
-		CategoryDao categoryDao = (CategoryDao) context.getBean("categoryDao");
+		CategoryDao categoryDao = (CategoryDao) context.getBean("categoryDao");*/
 	
 		model.addObject("categoryList",categoryDao.getCategoryList());
 		
@@ -49,12 +57,12 @@ public class CategoryController {
 	@RequestMapping(method=RequestMethod.POST, value="/categoryAdd")
 	public ModelAndView addSupplier(@ModelAttribute("category") Category category, @RequestParam("cId") int cId){
 		System.out.println("Supplier: "+category.getcName());
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
+	
+		CategoryDao categoryDao = (CategoryDao) context.getBean("categoryDao");*/
 		ModelAndView model = new ModelAndView("adminCategory");
-		CategoryDao categoryDao = (CategoryDao) context.getBean("categoryDao");
-		
 		System.out.println(category.getcId()+category.getcName());
 		category.setcId(cId);
 		categoryDao.saveOrUpdate(category);
@@ -65,11 +73,11 @@ public class CategoryController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/category/delete/{cId}")
 	public ModelAndView deleteSupplier(@PathVariable("cId") int cId){
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
 		
-		CategoryDao categoryDao = (CategoryDao) context.getBean("categoryDao");
+		CategoryDao categoryDao = (CategoryDao) context.getBean("categoryDao");*/
 		
 		ModelAndView model = new ModelAndView("adminCategory");
 		categoryDao.deleteCategory(cId);
@@ -79,11 +87,11 @@ public class CategoryController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/category/edit/{cId}")
 	public ModelAndView updateSupplier(@PathVariable("cId") int cId){
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.ecart");
 		context.refresh();
 		
-		CategoryDao categoryDao = (CategoryDao) context.getBean("categoryDao");
+		CategoryDao categoryDao = (CategoryDao) context.getBean("categoryDao");*/
 		
 		ModelAndView model = new ModelAndView("adminCategory");
 		Category category = categoryDao.getCategory(cId);
