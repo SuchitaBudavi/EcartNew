@@ -4,7 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.ecart.dao.CartDetailsDao;
 import com.ecart.dao.ProductDao;
 import com.ecart.dao.UserDao;
 import com.ecart.model.CartDetails;
@@ -36,7 +39,11 @@ public class CartController implements ApplicationContextAware{
 	@Autowired
 	private User user;
 	@Autowired
-	private CartDetails cart;
+	private CartDetails cartItem;
+	@Autowired
+	private CartDetailsDao cartDetailsDao;
+	
+	private Product product;
 	
 	private List<GuestCartDetails> guestCart = null;
 	ApplicationContext context;
@@ -49,13 +56,14 @@ public class CartController implements ApplicationContextAware{
 		this.guestCart = guestCart;
 	}
 
-	@RequestMapping(method=RequestMethod.GET,value="/user/addToCart/{pId}")
-	public void addtoCartUser(HttpSession session, @PathVariable("pId") int pId){
+	@RequestMapping(method=RequestMethod.GET,value="/user/addToCart/{pId}/{cId}")
+	public String addtoCartUser(HttpSession session, @PathVariable("pId") int pId, @PathVariable("cId") int cId){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth: "+auth);
-		
+		GuestCartDetails guestCart = (GuestCartDetails) context.getBean("guestCartDetails");
+		guestCart.setPrice(1111);
 		if (session.getAttribute("loggedUserName") == null || session.getAttribute("loggedUserName") == "") {
-			GuestCartDetails guestCart = (GuestCartDetails) context.getBean("guestCartDetails");
+			guestCart = (GuestCartDetails) context.getBean("guestCartDetails");
 			Product p = productDao.getProduct(pId);
 			guestCart.setpId(pId);
 			guestCart.setcId(p.getCategory_FK().getcId());
@@ -63,9 +71,35 @@ public class CartController implements ApplicationContextAware{
 			guestCart.setPrice(p.getpPrice());
 			guestCart.setQty(1);
 		}else{
-			user = (User) context.getBean("user");
-			System.err.println("user object last name "+user.getlName());
-			System.out.println("loggedUserName = " + session.getAttribute("loggedUserName"));
+			user = (User) session.getAttribute("loggedUser");
+			cartItem.setUser_FK(user);
+			
+			product = productDao.getProduct(pId);
+			cartItem.setProduct_FK(product);
+			cartItem.setCategory_FK(product.getCategory_FK());
+			cartItem.setSupplier_FK(product.getSupplier_FK());
+			cartItem.setPrice(product.getpPrice());
+			cartItem.setQty(1);
+			
+			/*List<CartDetails> cart = user.getuCart();
+			if(cart == null){
+				cart = new ArrayList<CartDetails>();
+			}
+			cart.add(cartItem);*/
+			cartDetailsDao.save(cartItem);
+			//userDao.saveOrUpdate(user);
+			System.out.println("saved into cart!");
+		}
+		
+		switch (cId) {
+		case 1:
+			return "redirect: /EcartFrontEnd/user/product/1";
+		
+		case 2: 
+			return "redirect: /EcartFrontEnd/user/product/2";
+			
+		default:
+			return "redirect: user/product/1";
 		}
 		
 	}
@@ -77,6 +111,23 @@ public class CartController implements ApplicationContextAware{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth: "+auth.getPrincipal().toString());
 	}*/
+	
+	@RequestMapping("displayCart")
+	public ModelAndView displayCart(HttpSession session){
+		ModelAndView model = new ModelAndView("displayCart");
+		user = (User) session.getAttribute("loggedUser");
+		List<CartDetails> cartList = cartDetailsDao.getCart(user.getuId());
+		model.addObject("cartList",cartList);
+		return model;
+	}
+	
+	@RequestMapping("deleteFromCart/{pId}/{cId}")
+	public String deleteFromCart(HttpSession session, @PathVariable("pId") int pId, @PathVariable("cId") int cId){
+		user = (User) session.getAttribute("loggedUser");
+		cartDetailsDao.delete(user.getuId(), pId, cId);
+		return "redirect: /EcartFrontEnd/displayCart";
+	}
+	
 	
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {

@@ -8,7 +8,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -29,13 +32,15 @@ import com.ecart.dao.ProductDao;
 import com.ecart.dao.SupplierDao;
 import com.ecart.dao.UserDao;
 import com.ecart.model.Category;
+import com.ecart.model.GuestCartDetails;
 import com.ecart.model.MobileCoverFeature;
 import com.ecart.model.Product;
 import com.ecart.model.Supplier;
 import com.ecart.model.User;
+import com.sun.xml.internal.bind.CycleRecoverable.Context;
 
 @Controller
-public class ProductController {
+public class ProductController implements ApplicationContextAware{
 
 	@Autowired
 	public ProductDao productDao;
@@ -51,6 +56,8 @@ public class ProductController {
 	public MobileFeatureDao mobileFeatureDao;
 	@Autowired
 	public UserDao userDao;
+	
+	ApplicationContext context;
 	
 	@RequestMapping(method=RequestMethod.GET, value="/mobile")
 	public ModelAndView displayMobiles(@RequestParam("pType") String pType, @RequestParam("brand") String brand){
@@ -241,6 +248,9 @@ public class ProductController {
 	public ModelAndView userDisplayProduct(@PathVariable("cId") int cId){
 		System.out.println("inside user Product display");
 		
+		GuestCartDetails guestCart1 = (GuestCartDetails) context.getBean("guestCartDetails");
+		System.out.println("Product controller GusetCart price: "+guestCart1.getPrice());
+		
 		ModelAndView model = new ModelAndView();
 		switch (cId) {
 		case 1:
@@ -275,5 +285,13 @@ public class ProductController {
 		model.addObject("brandList", productDao.getBrands(1));
 		return null;
 	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext context) throws BeansException {
+		this.context = context;
+		
+	}
+	
+	
 	
 }//class ends

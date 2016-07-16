@@ -65,7 +65,7 @@ button{
 	      		${sessionScope.loggedUser.fName}
 	      	</c:if>
       	</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+        <li><a href="displayCart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
         <li><a href="logout">Logout</a></li>
       </sec:authorize>
       <li><a href="customerCare">Customer Care</a></li>

@@ -73,6 +73,7 @@
 
 
 <bean class="com.ecart.model.GuestCartDetails" scope="sesssion"/>
+<!-- <bean class="com.ecart.model.User" scope="singleton"/> -->
 <bean class="com.ecart.dao.CategoryDaoImpl" name="categoryDao">
 <constructor-arg name="sessionFactory" ref="sessionFactory"></constructor-arg>
 </bean>
@@ -98,8 +99,8 @@
 <constructor-arg name="sessionFactory" ref="sessionFactory"></constructor-arg>
 </bean>
 
-<bean class="com.ecart.model.User" name="user"/>
+<bean class="com.ecart.model.User" name="user" scope="singleton"/>
 <bean class="com.ecart.model.GuestCartDetails" name="guestCartDetails"/>
-<bean class="com.ecart.model.CartDetails" name="cartDetails"/>
+<bean class="com.ecart.model.CartDetails" name="cartDetails" scope="singleton"/>
 
 </beans>

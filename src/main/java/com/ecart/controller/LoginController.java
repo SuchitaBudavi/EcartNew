@@ -116,11 +116,11 @@ public class LoginController implements ApplicationContextAware{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		
-		user = (User) context.getBean("user");
-		System.out.println(user);
-		if (user != null) {
+		/*User user1 = (User) context.getBean("user");
+		if (user1 != null) {*/
 				user = userDao.getUser(email);
-		}
+				System.out.println("user is now instantiated: "+user.getfName());
+		/*}*/
 		
 		
 		if(session.getAttribute("loggedUserEmail") == null || session.getAttribute("loggedUserEmail") == ""){
@@ -128,7 +128,7 @@ public class LoginController implements ApplicationContextAware{
 			session.setAttribute("loggedUserName", email);
 			session.setAttribute("loggedUser", user);
 			System.out.println("userHasLogged!!!!!!!!!");
-			System.out.println("session loggedUserEmail set to="+email+" logged user="+((User) session.getAttribute("loggedUser")).getuId());
+			System.out.println("session loggedUserEmail set to="+email+" logged user="+user);
 		}
 		
 		return "redirect: user/product/1";
