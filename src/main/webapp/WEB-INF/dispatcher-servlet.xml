@@ -35,7 +35,7 @@
             <value>.jsp</value>
         </property>
 </bean>
-<!-- <bean id="springSecurityFilterChain" class="org.springframework.web.filter.DelegatingFilterProxy"/> -->
+<bean id="springSecurityFilterChain" class="org.springframework.web.filter.DelegatingFilterProxy"/>
 <security:global-method-security secured-annotations="enabled"/>
 
 <bean id="dataSource"

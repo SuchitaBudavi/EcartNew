@@ -15,6 +15,8 @@ import com.ecart.model.GuestCartDetails;
 import com.ecart.model.Product;
 import com.ecart.model.User;
 
+import javassist.bytecode.Descriptor.Iterator;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +33,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 public class CartController implements ApplicationContextAware{
-
+	
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -81,11 +83,11 @@ public class CartController implements ApplicationContextAware{
 			cartItem.setPrice(product.getpPrice());
 			cartItem.setQty(1);
 			
-			/*List<CartDetails> cart = user.getuCart();
+			List<CartDetails> cart = cartDetailsDao.getCart(user.getuId());
 			if(cart == null){
 				cart = new ArrayList<CartDetails>();
 			}
-			cart.add(cartItem);*/
+			cart.add(cartItem);
 			cartDetailsDao.save(cartItem);
 			//userDao.saveOrUpdate(user);
 			System.out.println("saved into cart!");
@@ -104,30 +106,42 @@ public class CartController implements ApplicationContextAware{
 		
 	}
 
-/*	@RequestMapping(method=RequestMethod.GET,value="/addToCart/{pId}")
+	@RequestMapping(method=RequestMethod.GET,value="/addToCart/{pId}")
 	public void addtoCart(@PathVariable("pId") int pId){
 		GuestCartDetails guestCart = (GuestCartDetails) context.getBean("guestCartDetails");
 		System.out.println("GusetCartDetails Price: "+guestCart.getPrice());
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth: "+auth.getPrincipal().toString());
-	}*/
+	}
 	
 	@RequestMapping("displayCart")
 	public ModelAndView displayCart(HttpSession session){
 		ModelAndView model = new ModelAndView("displayCart");
 		user = (User) session.getAttribute("loggedUser");
 		List<CartDetails> cartList = cartDetailsDao.getCart(user.getuId());
+		java.util.Iterator<CartDetails> i = cartList.iterator();
+		while(i.hasNext()){
+			CartDetails cd = i.next();
+			System.out.println("suppl" + cd.getSupplier_FK().getsId());
+		}
 		model.addObject("cartList",cartList);
 		return model;
 	}
 	
-	@RequestMapping("deleteFromCart/{pId}/{cId}")
-	public String deleteFromCart(HttpSession session, @PathVariable("pId") int pId, @PathVariable("cId") int cId){
+	@RequestMapping("deleteFromCart/{pId}/{cId}/{sId}")
+	public String deleteFromCart(HttpSession session, @PathVariable("pId") int pId, @PathVariable("cId") int cId,@PathVariable("sId") int sId){
 		user = (User) session.getAttribute("loggedUser");
-		cartDetailsDao.delete(user.getuId(), pId, cId);
+		cartDetailsDao.delete(user.getuId(), pId, cId, sId);
 		return "redirect: /EcartFrontEnd/displayCart";
 	}
 	
+	@RequestMapping("updateCartItemQty")
+	public String updateCartItem(HttpSession session, @RequestParam("updateProductId") int pId, @RequestParam("updateSupplierId") int sId, @RequestParam("qty") int qty){
+		user = (User) session.getAttribute("loggedUser");
+		Product p = productDao.getProduct(pId);
+		cartDetailsDao.update(user.getuId(), pId, p.getCategory_FK().getcId(), sId, qty);
+		return "redirect: /EcartFrontEnd/displayCart";
+	}
 	
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
