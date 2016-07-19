@@ -69,7 +69,7 @@
 		<td>Price</td>
 		<td>Sub total</td>
 		<td>Delete</td>
-		<td>Save</td>
+		<td>Change Quantity</td>
 	</tr>
 </thead>
 <tbody>

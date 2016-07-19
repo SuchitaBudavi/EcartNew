@@ -34,6 +34,7 @@ import com.ecart.dao.UserDao;
 import com.ecart.model.Category;
 import com.ecart.model.GuestCartDetails;
 import com.ecart.model.MobileCoverFeature;
+import com.ecart.model.MobileFeature;
 import com.ecart.model.Product;
 import com.ecart.model.Supplier;
 import com.ecart.model.User;
@@ -286,6 +287,33 @@ public class ProductController implements ApplicationContextAware{
 		return null;
 	}
 
+	
+	@RequestMapping("user/displayProductDetaits/{pId}/{cId}")
+	public ModelAndView displayProductDetails(@PathVariable("pId") int pId, @PathVariable("cId") int cId){
+		ModelAndView model = new ModelAndView();
+		switch (cId) {
+		case 1:
+			model = new ModelAndView("detailsMobile");
+			MobileFeature mf = mobileFeatureDao.getMobileFeature(pId, cId);
+			System.out.println("mobile feature:"+mf.getProcessor());
+			model.addObject("featureDetails",mobileFeatureDao.getMobileFeature(pId, cId));
+			break;
+
+		case 2:
+			model = new ModelAndView("detailsMobileCover");
+			model.addObject("featureDetails",mobileCoverFeatureDao.getMobileCoverFeature(pId, cId));
+			break;
+			
+		default:
+			model = new ModelAndView("detailsMobile");
+			model.addObject("featureDetails",mobileFeatureDao.getMobileFeature(pId, cId));
+		}
+		model.addObject("product",productDao.getProduct(pId));
+		
+		
+		return model;
+	}
+	
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
 		this.context = context;
