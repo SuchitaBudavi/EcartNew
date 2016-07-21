@@ -1,10 +1,12 @@
 package com.ecart.controller;
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeansException;
@@ -12,10 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.http.HttpRequest;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +47,9 @@ public class LoginController implements ApplicationContextAware{
 	public UserDao userDao;
 	@Autowired
 	User user;
+	
+	@Autowired
+    protected AuthenticationManager authenticationManager;
 	
 	ApplicationContext context;
 	
@@ -73,7 +83,7 @@ public class LoginController implements ApplicationContextAware{
 		case 1:
 			// Admin
 			model = new ModelAndView("category/getAllCategories");
-			return "redirect: getAllCategories";
+			return "redirect: /EcartFrontEnd/getAllCategories";
 			
 		default:
 			// in valid credentials
@@ -84,18 +94,23 @@ public class LoginController implements ApplicationContextAware{
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/signUp")
-	public String signUpUser(@RequestParam("fName") String fName,@RequestParam("lName") String lName, @RequestParam("email") String email, @RequestParam("password") String password){
+	public String signUpUser(HttpServletRequest request,
+			@RequestParam("fName") String fName,@RequestParam("lName") String lName, @RequestParam("email") String email, @RequestParam("password") String password){
 		System.out.println("inside Singup controller");
 		System.out.println("lName="+lName);
 
 		user.setfName(fName);
 		user.setlName(lName);
 		user.setEmail(email);
-		user.setPassword(password);
+		user.setPassword(org.apache.commons.codec.digest.DigestUtils.sha1Hex(password));
 		user.setContactNum(0);
 		user.setIsAdmin(0);
+		user.setEnabled(true);
 		userDao.saveOrUpdate(user);
-		return "Homee";
+		System.out.println("Users saved!!");
+		//authenticateUserAndSetSession(user, request);
+		
+		return "redirect: /EcartFrontEnd/index";
 		
 	}
 	
@@ -131,7 +146,7 @@ public class LoginController implements ApplicationContextAware{
 			System.out.println("session loggedUserEmail set to="+email+" logged user="+user);
 		}
 		
-		return "redirect: user/product/1";
+		return "redirect: /EcartFrontEnd/user/product/1";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/adminHasLogged")
@@ -154,7 +169,7 @@ public class LoginController implements ApplicationContextAware{
 			System.out.println("session loggedUserEmail set to="+email+" logged user="+((User) session.getAttribute("loggedUser")).getuId());
 		}
 		}
-		return "redirect: getAllCategories";
+		return "redirect: /EcartFrontEnd/getAllCategories";
 	}
 	
 	@RequestMapping("/customerCare")
@@ -163,6 +178,38 @@ public class LoginController implements ApplicationContextAware{
 		return "customerCare";
 	}
 
+	
+	private void authenticateUserAndSetSession(User user, HttpServletRequest request) {
+		
+	        String email = user.getEmail();
+	        String password = user.getPassword();
+	        password = org.apache.commons.codec.digest.DigestUtils.sha1Hex(password);
+	        System.out.println("email="+email+" hassed password="+password);
+	        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
+	        System.out.println("after usernamepassword");
+	        // generate session if one doesn't exist
+	        HttpSession session = request.getSession();
+
+	        token.setDetails(new WebAuthenticationDetails(request));
+	        Authentication authenticatedUser = authenticationManager.authenticate(token);
+	        if(authenticatedUser.isAuthenticated()) {
+	        	System.out.println("user is authenticated");
+	        }
+	        else
+	        {
+	        	System.out.println("User is not authenticated");
+	        }
+	        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
+	        
+	        if(session.getAttribute("loggedUserEmail") == null || session.getAttribute("loggedUserEmail") == ""){
+				session.setAttribute("loggedUserRole", "ROLE_USER");
+				session.setAttribute("loggedUserName", email);
+				session.setAttribute("loggedUser", user);
+				System.out.println("userHasLogged!!!!!!!!!");
+				System.out.println("session loggedUserEmail set to="+email+" logged user="+((User) session.getAttribute("loggedUser")).getuId());
+			}
+	    }
+	
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
 		this.context = context;

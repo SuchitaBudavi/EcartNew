@@ -169,7 +169,6 @@ public class ProductController implements ApplicationContextAware{
 		return model;
 	}
 	
-	@Secured("ROLE_ANONYMOUS")
 	@RequestMapping(method=RequestMethod.GET, value="/productDetails/{cId}/{pId}")
 	public ModelAndView editProduct(@PathVariable("pId") int pId,@PathVariable("cId") int cId){
 		
@@ -242,7 +241,7 @@ public class ProductController implements ApplicationContextAware{
 		System.out.println("Direct Id?"+pId.getpId()+cId.getcId());
 
 		mobileCoverFeatureDao.saveOrUpdate(mobileCoverFeature);
-		return "redirect: productDetails/"+mobileCoverFeature.getMobileCoverFeatureId().getCategory_FK().getcId()+"/"+mobileCoverFeature.getMobileCoverFeatureId().getProduct_FK().getpId();
+		return "redirect: /EcartFrontEnd/productDetails/"+mobileCoverFeature.getMobileCoverFeatureId().getCategory_FK().getcId()+"/"+mobileCoverFeature.getMobileCoverFeatureId().getProduct_FK().getpId();
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/user/product/{cId}")

@@ -101,7 +101,7 @@ public class CartController implements ApplicationContextAware{
 			return "redirect: /EcartFrontEnd/user/product/2";
 			
 		default:
-			return "redirect: user/product/1";
+			return "redirect: /EcartFrontEnd/user/product/1";
 		}
 		
 	}

@@ -35,9 +35,9 @@
   </div>
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 <ul class="nav navbar-nav">
-<li><a href="getAllCategories">Category</a></li>
-<li><a href="getAllProducts">Product</a></li>
-<li><a href="getAllSuppliers">Supplier</a></li>
+<li><a href="${pageContext.request.contextPath}/getAllCategories">Category</a></li>
+<li><a href="${pageContext.request.contextPath}/getAllProducts">Product</a></li>
+<li><a href="${pageContext.request.contextPath}/getAllSuppliers">Supplier</a></li>
 </ul>
 </div>
 </div>

@@ -91,7 +91,7 @@
 </table>
 </form>
 <br><br>
-<a href="placeOrder" class="btn btn-primary">Place Order</a>
+<a href="confirmOrderContacts" class="btn btn-primary">Place Order</a>
 </div>
 <br><br>
 
@@ -111,8 +111,8 @@
 	</div>
 	<div class="modal-body">
 	<table style="border-collapse: separate; border-spacing: 8px 10px;">
-	<input id="updateProductId" name="updateProductId" type="number" name="pId"/>
-	<input id="updateSupplierId" name="updateSupplierId" type="number" name="sId"/>
+	<input id="updateProductId" name="updateProductId" type="hidden" name="pId"/>
+	<input id="updateSupplierId" name="updateSupplierId" type="hidden" name="sId"/>
 	<tr><td>Product:</td><td><input id="updateProduct" type="text" readonly/></td></tr>
 	<tr><td>Supplier Name:</td><td><input id="updateSupplierName" type="text" readonly/></td></tr>
 	<tr><td>Product Quantity:</td><td><input type="text" name="qty"></td></tr>
