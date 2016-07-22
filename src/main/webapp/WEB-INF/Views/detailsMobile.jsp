@@ -103,6 +103,8 @@
 	<li>${featureDetails.screenSize}</li>
 	<li>${featureDetails.color}</li>
 </ul>
+<br>
+<h4>Price:  ${product.pPrice}</h4>
 <a href="user/addToCart/${product.pId}/${product.category_FK.cId}" class="btn btn-primary">Add to Cart</a>
 </div>
 </div>

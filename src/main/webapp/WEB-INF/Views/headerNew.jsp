@@ -53,18 +53,24 @@ button{
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
       <c:forEach items="${sessionScope.categotyList}" var="category">
-        <li><a href="user/product/${category.cId}">${category.cName}</a></li>
+        <li><a href="/EcartFrontEnd/user/product/${category.cId}">${category.cName}</a></li>
       </c:forEach>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       <sec:authorize access="isAnonymous()"><li><a href="#" data-toggle="modal" data-target="#signupModal"> Signup</a></li></sec:authorize>
 	  <sec:authorize access="isAnonymous()"><li><a href="#" data-toggle="modal" data-target="#loginModal"> Log In</a></li></sec:authorize>
       <sec:authorize access="isAuthenticated()">
-      	<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+      	<li class="dropdown"><a data-toggle="dropdown" href="manageProfile"><span class="glyphicon glyphicon-user"></span>
 	      	<c:if test="${(sessionScope.loggedUserEmail != null) || (sessionScope.loggedUserEmail != '')}">
 	      		${sessionScope.loggedUser.fName}
 	      	</c:if>
-      	</a></li>
+      	</a>
+      	<ul class="dropdown-menu">
+			<li><a href="${pageContext.request.contextPath}/manageProfile">Manage Profile</a></li>
+			<li><a href="#">Add Address</a></li>
+		</ul>
+      	
+      	</li>
         <li><a href="displayCart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
         <li><a href="logout">Logout</a></li>
       </sec:authorize>

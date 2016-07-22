@@ -12,12 +12,16 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
 </head>
 <body>
+<div class="container panel">
+<div class="row">
 Mobile Cover Feature:
+</div>
 <c:url var="addAction" value="/mobileCoverFeatureSave"/>
 <form action="${addAction}">
-<table>
-<input type="number" name="mobileCoverFeatureId.product_FK.pId" value="${product}"/>
-<input type="number" name="mobileCoverFeatureId.category_FK.cId" value="${category}"/>
+<div class="row">
+<table class="table table-bordered">
+<input type="hidden" name="mobileCoverFeatureId.product_FK.pId" value="${product}"/>
+<input type="hidden" name="mobileCoverFeatureId.category_FK.cId" value="${category}"/>
 <tr><td>Color:</td><td><input type="text" name="color" path="color" value="${mobileCoverFeature.color}"/></td></tr>
 <tr><td>Material:</td><td><input type="text" name="material" path="material" value="${mobileCoverFeature.material}"/></td></tr>
 <tr><td>Case Type:</td><td><input type="text" name="caseType" path="caseType" value="${mobileCoverFeature.caseType}"/></td></tr>
@@ -25,7 +29,11 @@ Mobile Cover Feature:
 <tr><td>Mobile Model:</td><td><input type="text" name="mobileModel" path="mobileModel" value="${mobileCoverFeature.mobileModel}"/></td></tr>
 <tr><td>Plain/Designed:</td><td><input type="text" name="plainOrDesigned" path="plainOrDesigned" value="${mobileCoverFeature.plainOrDesigned}"/></td></tr>
 </table>
-<input type="submit" value="Save">
+</div>
+<div class="row">
+<input class="btn btn-primary" type="submit" value="Save">
+</div>
 </form>
+</div>
 </body>
 </html>

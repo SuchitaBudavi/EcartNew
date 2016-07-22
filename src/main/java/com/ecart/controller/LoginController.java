@@ -125,6 +125,16 @@ public class LoginController implements ApplicationContextAware{
 		System.out.println("inside ManageProfile");
 		return "userProfile";
 	}
+	@RequestMapping(method=RequestMethod.POST, value="/changeProfileDetails")
+	public String updateProfile(HttpSession session, @RequestParam("fName") String fName,@RequestParam("lName") String lName,@RequestParam("contactNum") int contactNum){
+		User u = (User) session.getAttribute("loggedUser");
+		u.setfName(fName);
+		u.setlName(lName);
+		u.setContactNum(contactNum);
+		userDao.saveOrUpdate(u);
+		session.setAttribute("loggedUser", u);
+		return "redirect: /EcartFrontEnd/manageProfile";
+	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/userHasLogged")
 	public String userHasLogged(HttpSession session,Model model){

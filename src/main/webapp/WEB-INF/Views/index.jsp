@@ -33,6 +33,10 @@
     .filter{
     	
     }
+    
+    .carousel-inner > .item > img {
+    margin: 0 auto;
+}
   </style>
 </head>
 <body>
@@ -54,29 +58,29 @@
 		    </ol>
 		    <div class="carousel-inner" role="listbox">
 		      	<div class="item active">
-		       		 <img src="D:\\study\\ECart\\EcartFrontEnd\\src\\main\\webapp\\WEB-INF\\resources\\media\\iphones1.jpg" alt="iphone" width="900" height="250">
+		       		 <img src="http://www.androidguys.com/wp-content/uploads/2015/03/galaxy_s6-hero.png" alt="iphone" width="900" height="250">
 		       		 <div class="carousel-caption">
-			            <h3>iPhone</h3>
+			            <h3>Samsung</h3>
           			</div>
 		      	</div>
 		
 		     	<div class="item">
-		        	<img src="D:\\study\\ECart\\EcartFrontEnd\\src\\main\\webapp\\WEB-INF\\resources\\media\\samsung1024_620.jpg" alt="samsung" width="900" height="300">
-		        	 <div class="carousel-caption">
-			            <h3>Samsung</h3>
-          			</div>
-		      	</div>
-		    
-		      	<div class="item">
-		        	<img src="D:\\study\\ECart\\EcartFrontEnd\\src\\main\\webapp\\WEB-INF\\resources\\media\\iphone1024x620.jpg" alt="iphone" width="900" height="300">
+		        	<img src="http://www.notebookcheck.net/typo3temp/_processed_/csm_4_zu_3_teaser_05_a68d30babc.jpg" alt="samsung" width="900" height="300">
 		        	 <div class="carousel-caption">
 			            <h3>iPhone</h3>
           			</div>
 		      	</div>
+		    
 		      	<div class="item">
-		        	<img src="D:\\study\\ECart\\EcartFrontEnd\\src\\main\\webapp\\WEB-INF\\resources\\media\\samsung-1024x620.jpg" alt="samsung" width="900" height="300">
-		        	<div class="carousel-caption">
+		        	<img src="http://cdn.shopify.com/s/files/1/0196/3894/files/20150825165325322532_1024x1024.jpg?12903253272233953691" alt="iphone" width="900" height="300">
+		        	 <div class="carousel-caption">
 			            <h3>Samsung</h3>
+          			</div>
+		      	</div>
+		      	<div class="item">
+		        	<img src="http://www.notebookcheck.net/typo3temp/_processed_/csm_4_zu_3_teaser_05_a68d30babc.jpg" alt="samsung" width="900" height="300">
+		        	<div class="carousel-caption">
+			            <h3>iPhone</h3>
           			</div>
 		      	</div>
 			</div>	<!-- carousel-inner -->
