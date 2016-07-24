@@ -35,6 +35,12 @@
             <value>.jsp</value>
         </property>
 </bean>
+
+<bean class="org.springframework.context.support.ResourceBundleMessageSource"
+		id="messageSource">
+		<property name="basename" value="messages" />
+</bean>
+
 <bean id="springSecurityFilterChain" class="org.springframework.web.filter.DelegatingFilterProxy"/>
 <security:global-method-security secured-annotations="enabled"/>
 

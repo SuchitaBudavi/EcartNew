@@ -118,7 +118,9 @@ public class CartController implements ApplicationContextAware{
 	public ModelAndView displayCart(HttpSession session){
 		ModelAndView model = new ModelAndView("displayCart");
 		user = (User) session.getAttribute("loggedUser");
+		System.out.println("display cart: "+user.getuId());
 		List<CartDetails> cartList = cartDetailsDao.getCart(user.getuId());
+		System.out.println("cart List: "+ cartList);
 		java.util.Iterator<CartDetails> i = cartList.iterator();
 		while(i.hasNext()){
 			CartDetails cd = i.next();

@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -11,6 +12,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ecart.dao.CategoryDao;
 import com.ecart.dao.SupplierDao;
@@ -40,35 +44,32 @@ public class CategoryController {
 
 	@RequestMapping(method=RequestMethod.GET, value="/getAllCategories")
 	public ModelAndView displayAllSuppliers(){
-		System.out.println("supplier controller");
+		System.out.println("category controller");
 		ModelAndView model = new ModelAndView("adminCategory");
-		
-		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		context.scan("com.ecart");
-		context.refresh();
-		
-		CategoryDao categoryDao = (CategoryDao) context.getBean("categoryDao");*/
-	
+		model.addObject("category",new Category());
 		model.addObject("categoryList",categoryDao.getCategoryList());
 		
 		return model;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/categoryAdd")
-	public ModelAndView addSupplier(@ModelAttribute("category") Category category, @RequestParam("cId") int cId){
-		System.out.println("Supplier: "+category.getcName());
-		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		context.scan("com.ecart");
-		context.refresh();
-	
-		CategoryDao categoryDao = (CategoryDao) context.getBean("categoryDao");*/
-		ModelAndView model = new ModelAndView("adminCategory");
-		System.out.println(category.getcId()+category.getcName());
-		category.setcId(cId);
-		categoryDao.saveOrUpdate(category);
-		model.addObject("category", null);
-		model.addObject("categoryList",categoryDao.getCategoryList());
-		return model;
+	public String addSupplier(@ModelAttribute("category") @Valid Category category, BindingResult result, RedirectAttributes attr, @RequestParam("cId") int cId, Model model){
+		//ModelAndView model = new ModelAndView("adminCategory");
+		if(result.hasErrors()){
+			/*attr.addFlashAttribute("org.springframework.validation.BindingResult.register", result);
+			System.out.println("error:"+result.getFieldError("cName"));
+			model.addAttribute("category",new Category());*/
+			model.addAttribute("categoryList",categoryDao.getCategoryList());
+			System.out.println("cat list added!!"+categoryDao.getCategoryList().get(0).getcName());
+			return "adminCategory";
+		}else{
+			category.setcId(cId);
+			categoryDao.saveOrUpdate(category);
+			model.addAttribute("category",new Category());
+			model.addAttribute("categoryList",categoryDao.getCategoryList());
+			System.out.println("cat list added!!"+categoryDao.getCategoryList().get(0).getcName());
+			return "adminCategory";
+		}
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/category/delete/{cId}")

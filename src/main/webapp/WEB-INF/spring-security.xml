@@ -28,7 +28,7 @@
     </http>
  	
  	<beans:bean id="authenticationSuccessHandler"
-        class="com.ecart.security.UrlAuthenticationSuccessHandler" />
+        class="com.ecart.security1.UrlAuthenticationSuccessHandler" />
     <beans:bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
     <authentication-manager alias="authenticationManager">
         <authentication-provider>

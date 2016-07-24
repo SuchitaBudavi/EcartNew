@@ -6,7 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Admin Category</title>
+<style>
+.error {
+	color: #ff0000;
+}
+</style>
 </head>
 <body>
 <%@ include file="adminHeader.jsp" %>
@@ -14,11 +19,13 @@
 <c:url var="addAction" value="/categoryAdd"></c:url>
 <form:form action="${addAction}" commandName="category">
 <c:choose>
-<c:when test="${! empty category.cId}">
+<c:when test="${category.cId != 0}">
 <div class="row">	<!-- Add category -->
-<div class="col-md-2 col-xs-2">Category Name: <input type="text" name="cName" value="${category.cName}" required/></div>
-<div class="col-md-2 col-xs-2">Category Id: <input type="number" name="cId" value="${category.cId}" readonly/></div>
+<div class="col-md-2 col-xs-2">Category Name: <form:input path="cName" type="text"/></div>
+<form:errors path="cName" cssClass="error" />
+<div class="col-md-2 col-xs-2">Category Id: <form:input path="cId" type="number" readonly="true"/></div>
 </div>
+<div class="row"><form:errors path="cName" cssClass="error" /></div><br>
 <div class="row">
 <div class="col-md-4 col-xs-4"><input class="btn" type="submit" value="Edit Category"/>
 <input class="btn" type="submit" value="Cancel"/></div>
@@ -26,14 +33,15 @@
 </c:when>
 <c:otherwise>
 <div class="row">	<!-- Add Supplier -->
-<div class="col-md-2 col-xs-2">Category Name: <input type="text" name="cName" required/></div>
-<div class="col-md-2 col-xs-2" style="display: none">Category Id: <input type="number" name="cId" value="0"/></div>
+<div class="col-md-2 col-xs-2">Category Name: <form:input path="cName" type="text"/></div>
+<div class="col-md-2 col-xs-2" style="display: none">Category Id: <form:input path="cId" type="number"/></div>
 </div>
+<div class="row"><form:errors path="cName" cssClass="error" /></div><br>
 <div class="row">
 <div class="col-md-2 col-xs-2"><input class="btn" type="submit" value="Add Category"/></div>
 </div>
 </c:otherwise>
-</c:choose>
+</c:choose><br>
  <!-- Add Category -->
 <table class="table table-bordered table-hover panel">
 <thead>
@@ -43,6 +51,7 @@
 	<th>Update/Delete</th>
 </tr>
 </thead>
+${categoryList}
 <tbody>
 <c:forEach items="${categoryList}" var="category"> 
 <tr>

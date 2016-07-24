@@ -106,7 +106,7 @@ public class LoginController implements ApplicationContextAware{
 		user.setContactNum(0);
 		user.setIsAdmin(0);
 		user.setEnabled(true);
-		userDao.saveOrUpdate(user);
+		userDao.save(user);
 		System.out.println("Users saved!!");
 		//authenticateUserAndSetSession(user, request);
 		
@@ -131,7 +131,7 @@ public class LoginController implements ApplicationContextAware{
 		u.setfName(fName);
 		u.setlName(lName);
 		u.setContactNum(contactNum);
-		userDao.saveOrUpdate(u);
+		userDao.update(u);
 		session.setAttribute("loggedUser", u);
 		return "redirect: /EcartFrontEnd/manageProfile";
 	}
