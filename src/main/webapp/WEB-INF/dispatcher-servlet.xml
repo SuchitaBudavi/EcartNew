@@ -111,9 +111,8 @@
 
 
 <!-- Spring WebFlow -->
-<!-- <webflow:flow-executor id="flowExecutor" />
+<webflow:flow-executor id="flowExecutor" />
 <webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices" base-path="/WEB-INF">
-		here the id is mapped to invoke this flow
 		<webflow:flow-location id="purchase" path="/purchaseFlow.xml" />
 </webflow:flow-registry>
 <webflow:flow-builder-services id="flowBuilderServices"	view-factory-creator="viewFactoryCreator" />
@@ -133,6 +132,6 @@
 <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
 	<property name="flowRegistry" ref="flowRegistry" />
 	<property name="order" value="0" />
-</bean> -->
+</bean>
 
 </beans>

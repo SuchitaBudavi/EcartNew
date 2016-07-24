@@ -51,7 +51,6 @@
 	<th>Update/Delete</th>
 </tr>
 </thead>
-${categoryList}
 <tbody>
 <c:forEach items="${categoryList}" var="category"> 
 <tr>

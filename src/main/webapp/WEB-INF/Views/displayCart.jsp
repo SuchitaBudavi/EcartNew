@@ -59,6 +59,12 @@
 <body>
 <%@include file="headerNew.jsp"%>
 <div class="container">
+<c:set var="size" scope="page" value="${fn:length(cartList)}"></c:set>
+<c:choose>
+<c:when test="${size == 0}">
+${cartMessage}
+</c:when>
+<c:otherwise>
 <form method="post" action="${action}">
 <table class="table table-bordered">
 <thead>
@@ -89,12 +95,13 @@
 <tr><td></td><td></td><td></td><td>Total</td><td>${total}</td></tr>
 </tbody>
 </table>
-</form>
 <br><br>
-<a href="confirmOrderContacts" class="btn btn-primary">Place Order</a>
+<a href="purchase.obj" class="btn btn-primary">Place Order</a>
+</form>
+</c:otherwise>
+</c:choose>
 </div>
 <br><br>
-
 <footer class="container-fluid text-center">
   <p>Online Store Copyright</p>
 </footer>

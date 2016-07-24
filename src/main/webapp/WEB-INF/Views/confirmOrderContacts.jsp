@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html lang="en">
 <head>
-  <title>Confirm Contacts</title>
+  <title>Confirm Personal Details</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -58,13 +58,11 @@
   </div>
 </div>
 <div class="container">
-<a href="${flowExecutionUrl}&_eventId_home">Home</a>
+<table></table>
+<h2>Confirm Perfonal Details</h2>
 				<form:form modelAttribute="user"><br />
-					<form:input path="uId" /><br />
+					<form:input type="hidden" path="uId" /><br />
 					<!-- to display validation messages -->
-					<c:forEach items="${flowRequestContext.messageContext.getMessagesBySource('uId')}" var="err">
-					  <div><span>${err.text}</span></div>
-					</c:forEach><br />
 					<form:label path="fName">First Name: </form:label>
 					<form:input path="fName" /><br />
 					<c:forEach items="${flowRequestContext.messageContext.getMessagesBySource('fName')}" var="err">
@@ -89,6 +87,7 @@
 					<!-- for triggering webflow events using form submission,
 					 the eventId to be triggered is given in "name" attribute as:
 					-->
+					<%-- <a href="${flowExecutionUrl}&_eventId_home">Confirm Details</a> --%>
 					<input name="_eventId_submit" type="submit" value="Submit" /><br />
 </form:form>
 

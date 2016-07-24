@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html lang="en">
 <head>
-  <title>Mobile Cover</title>
+  <title>Mobile Details</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -59,14 +59,13 @@
 <body>
 <%@include file="headerNew.jsp"%>
 <div class="container">
-<div class="col-sm-7" style="border: 1px solid">
+<div class="row">
+<div class="col-sm-7">
 <div id="myCarousel" class="carousel slide courselImg" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
 
   <!-- Wrapper for slides -->
@@ -95,19 +94,39 @@
   </a>
 </div> <!-- Coursel -->
 </div>
-<div class="col-sm-5" style="border: 1px solid">
+<div class="col-sm-5">
 <div class="container">
-<h2>Mobile Brand<br>Mobile Model</h2>
+<h2>${product.pBrand}<br>${product.pModel}</h2>
 <ul>
-	<li>OS</li>
-	<li>Processor</li>
-	<li>screen size</li>
+	<li>${featureDetails.os}</li>
+	<li>${featureDetails.processor}</li>
+	<li>${featureDetails.screenSize}</li>
+	<li>${featureDetails.color}</li>
 </ul>
-<a href="user/addToCart/${productList[count.index+1].pId}/${productList[count.index+1].category_FK.cId}" class="btn btn-primary">Add to Cart</a>
+<br>
+<h4>Price:  ${product.pPrice}</h4>
+<a href="/EcartFrontEnd/user/addToCartFromDetails/${product.pId}/${product.category_FK.cId}" class="btn btn-primary">Add to Cart</a>
 </div>
+</div>
+</div> <!-- Row 1 -->
+<div class="row panel">
+<h2>Detailed Features</h2>
+</div>
+<div class="row panel">
+<table class="table table-bordered">
+<tbody>
+
+</tbody>
+</table>
+</div><!-- row table -->
+<br><br>
+<div class="row">
+<h3>Suppliers</h3>
+
 </div>
 </div>
 <br><br>
+
 
 <footer class="container-fluid text-center">
   <p>Online Store Copyright</p>

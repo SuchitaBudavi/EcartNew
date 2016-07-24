@@ -58,8 +58,7 @@ public class CartController implements ApplicationContextAware{
 		this.guestCart = guestCart;
 	}
 
-	@RequestMapping(method=RequestMethod.GET,value="/user/addToCart/{pId}/{cId}")
-	public String addtoCartUser(HttpSession session, @PathVariable("pId") int pId, @PathVariable("cId") int cId){
+	private void addtoCart(HttpSession session, int pId, int cId){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("auth: "+auth);
 		GuestCartDetails guestCart = (GuestCartDetails) context.getBean("guestCartDetails");
@@ -92,7 +91,11 @@ public class CartController implements ApplicationContextAware{
 			//userDao.saveOrUpdate(user);
 			System.out.println("saved into cart!");
 		}
+	}
+	@RequestMapping(method=RequestMethod.GET,value="/user/addToCart/{pId}/{cId}")
+	public String addtoCartUser(HttpSession session, @PathVariable("pId") int pId, @PathVariable("cId") int cId){
 		
+		addtoCart(session, pId, cId);
 		switch (cId) {
 		case 1:
 			return "redirect: /EcartFrontEnd/user/product/1";
@@ -103,6 +106,14 @@ public class CartController implements ApplicationContextAware{
 		default:
 			return "redirect: /EcartFrontEnd/user/product/1";
 		}
+		
+	}
+	
+	@RequestMapping(method=RequestMethod.GET,value="/user/addToCartFromDetails/{pId}/{cId}")
+	public String addtoCartUserFromDetails(HttpSession session, @PathVariable("pId") int pId, @PathVariable("cId") int cId){
+		
+		addtoCart(session, pId, cId);
+		return "redirect: /EcartFrontEnd/user/displayProductDetaits/"+pId+"/"+cId;
 		
 	}
 
@@ -121,10 +132,14 @@ public class CartController implements ApplicationContextAware{
 		System.out.println("display cart: "+user.getuId());
 		List<CartDetails> cartList = cartDetailsDao.getCart(user.getuId());
 		System.out.println("cart List: "+ cartList);
-		java.util.Iterator<CartDetails> i = cartList.iterator();
-		while(i.hasNext()){
-			CartDetails cd = i.next();
-			System.out.println("suppl" + cd.getSupplier_FK().getsId());
+		if(cartList != null){
+			java.util.Iterator<CartDetails> i = cartList.iterator();
+			while(i.hasNext()){
+				CartDetails cd = i.next();
+				System.out.println("suppl" + cd.getSupplier_FK().getsId());
+			}
+		}else{
+			model.addObject("cartMessage","<h3>Your cart is empty <br> Enjoy our wide range of Products, Happy Shopping!<h3>");
 		}
 		model.addObject("cartList",cartList);
 		return model;

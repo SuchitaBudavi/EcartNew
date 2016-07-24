@@ -172,17 +172,6 @@ public class ProductController implements ApplicationContextAware{
 	@RequestMapping(method=RequestMethod.GET, value="/productDetails/{cId}/{pId}")
 	public ModelAndView editProduct(@PathVariable("pId") int pId,@PathVariable("cId") int cId){
 		
-		/*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		context.scan("com.ecart");
-		context.refresh();
-		
-		productDao = (ProductDao) context.getBean("productDao");
-		supplierDao = (SupplierDao) context.getBean("supplierDao");
-		categoryDao = (CategoryDao) context.getBean("categoryDao");
-		mobileCoverFeatureDao = (MobileCoverFeatureDao) context.getBean("mobileCoverFeatureDao");
-		mobileFeatureDao = (MobileFeatureDao) context.getBean("mobileFeatureDao");
-		multiSupplierDao = (MultiSupplierDao) context.getBean("multiSupplierDao");
-		*/
 		ModelAndView model =null;
 		//cId=1 = Mobile, cId=2 = MobileCover
 		switch (cId) {
@@ -294,8 +283,7 @@ public class ProductController implements ApplicationContextAware{
 		case 1:
 			model = new ModelAndView("detailsMobile");
 			MobileFeature mf = mobileFeatureDao.getMobileFeature(pId, cId);
-			System.out.println("mobile feature:"+mf.getProcessor());
-			model.addObject("featureDetails",mobileFeatureDao.getMobileFeature(pId, cId));
+			model.addObject("featureDetails",mf);
 			break;
 
 		case 2:
@@ -305,11 +293,10 @@ public class ProductController implements ApplicationContextAware{
 			
 		default:
 			model = new ModelAndView("detailsMobile");
-			model.addObject("featureDetails",mobileFeatureDao.getMobileFeature(pId, cId));
+			MobileFeature mf1 = mobileFeatureDao.getMobileFeature(pId, cId);
+			model.addObject("featureDetails",mf1);
 		}
 		model.addObject("product",productDao.getProduct(pId));
-		
-		
 		return model;
 	}
 	

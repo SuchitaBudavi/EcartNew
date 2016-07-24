@@ -4,22 +4,19 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
                           
-                          
- <!--  <on-start>
-	demohandler is java class available through annotated Demohandler.java class.here we are calling it’s initFlow() method.
-	  <evaluate expression="demohandler.initFlow()" result="flowScope.userBean"/>
-</on-start> -->
 <on-start>
-	  <evaluate expression="OrderController.initFlow()" result="flowScope.userBean"/>
-	</on-start>
+	  <evaluate expression="orderController.initFlow()" result="flowScope.user"/>
+</on-start>                     
 <view-state id="start" view="confirmOrderContacts" model="flowScope.user">
-	   <transition on="submit" to="validate"/>
+	  <transition on="submit" to="orderPlaced"/>
 </view-state> 
 
-<action-state id="validate">
+<end-state id="orderPlaced" view="orderPlaced" />
+
+<!-- <action-state id="validate">
 		<evaluate expression="OrderController.confirmContact(user,messageContext)"></evaluate>
 		<transition on="confirmContact" to="confirmDetails" />
 		<transition on="failure" to="start" />
-</action-state>
+</action-state> -->
 
 </flow>

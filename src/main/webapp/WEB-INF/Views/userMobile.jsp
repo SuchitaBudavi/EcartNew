@@ -66,7 +66,7 @@
         <div class="panel-heading">${productList[count.index].pBrand}, ${productList[count.index].pModel} <br> ${productList[count.index].pPrice}</div>
         <div class="panel-body"><a href="/EcartFrontEnd/user/displayProductDetaits/${productList[count.index].pId}/${productList[count.index].category_FK.cId}"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></a>
         </div>
-        <div class="panel-footer"><a href="user/addToCart/${productList[count.index].pId}/${productList[count.index].category_FK.cId}" class="btn btn-sm btn-hover btn-info cartButton">Add to Cart</a></div>
+        <div class="panel-footer"><a href="/EcartFrontEnd/user/addToCart/${productList[count.index].pId}/${productList[count.index].category_FK.cId}" class="btn btn-sm btn-hover btn-info cartButton">Add to Cart</a></div>
       </div>
     </div>
     <c:if test="${count.index+1 <=  (size-1)}">
@@ -74,7 +74,7 @@
       <div class="panel panel-danger">
         <div class="panel-heading">${productList[count.index+1].pBrand}, ${productList[count.index+1].pModel}<br>${productList[count.index+1].pPrice}</div>
         <div class="panel-body"><a href="/EcartFrontEnd/user/displayProductDetaits/${productList[count.index+1].pId}/${productList[count.index+1].category_FK.cId}"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></a></div>
-        <div class="panel-footer"><a href="user/addToCart/${productList[count.index+1].pId}/${productList[count.index+1].category_FK.cId}" class="btn btn-sm btn-hover btn-info cartButton">Add to Cart</a></div>
+        <div class="panel-footer"><a href="/EcartFrontEnd/user/addToCart/${productList[count.index+1].pId}/${productList[count.index+1].category_FK.cId}" class="btn btn-sm btn-hover btn-info cartButton">Add to Cart</a></div>
       </div>
     </div>
     </c:if>
@@ -83,7 +83,7 @@
       <div class="panel panel-success">
         <div class="panel-heading">${productList[count.index+2].pBrand}, ${productList[count.index+2].pModel}<br>${productList[count.index+2].pPrice}</div>
         <div class="panel-body"><a href="/EcartFrontEnd/user/displayProductDetaits/${productList[count.index+2].pId}/${productList[count.index+2].category_FK.cId}"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></a></div>
-        <div class="panel-footer"><a href="user/addToCart/${productList[count.index+2].pId}/${productList[count.index+2].category_FK.cId}" class="btn btn-sm btn-hover btn-info cartButton">Add to Cart</a></div>
+        <div class="panel-footer"><a href="/EcartFrontEnd/user/addToCart/${productList[count.index+2].pId}/${productList[count.index+2].category_FK.cId}" class="btn btn-sm btn-hover btn-info cartButton">Add to Cart</a></div>
       </div>
     </div>
     </c:if>
